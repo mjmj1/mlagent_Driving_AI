@@ -37,10 +37,7 @@ public class LaneDetect : MonoBehaviour
     Point left_b, right_b;
     bool left_detect = false, right_detect = false;
 
-    //°ü½É ¿µ¿ª ¹üÀ§ °è»ê½Ã »ç¿ë 
-    /*double poly_bottom_width = 0.85;  //»ç´Ù¸®²Ã ¾Æ·¡ÂÊ °¡ÀåÀÚ¸® ³Êºñ °è»êÀ» À§ÇÑ ¹éºÐÀ²
-    double poly_top_width = 0.07;     //»ç´Ù¸®²Ã À§ÂÊ °¡ÀåÀÚ¸® ³Êºñ °è»êÀ» À§ÇÑ ¹éºÐÀ²*/
-    double poly_height = 30;         //»ç´Ù¸®²Ã ³ôÀÌ °è»êÀ» À§ÇÑ ¹éºÐÀ²
+    double poly_height = 30;
 
     Mat filter_colors(Mat img_frame)
     {
@@ -263,11 +260,8 @@ public class LaneDetect : MonoBehaviour
         Texture2D img_copy = cam.targetTexture.toTexture2D();
         Mat img_frame = OpenCvSharp.Unity.TextureToMat(img_copy);
 
-<<<<<<< HEAD
-=======
         DestroyImmediate(img_copy);
 
->>>>>>> parent of 0ede0e7f (ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ í•´ê²° 2)
         Mat img_filter = filter_colors(img_frame);
 
         //3. ¿µ»óÀ» GrayScale À¸·Î º¯È¯ÇÑ´Ù.

@@ -74,13 +74,9 @@ public class DrivingAgent : Agent
 
         /*stageManager.ActiveMap(idx, false);
         idx = Random.Range(0, 5);
-<<<<<<< HEAD
         stageManager.ActiveMap(idx, true);*/
 
         Resources.UnloadUnusedAssets();
-=======
-        stageManager.ActiveMap(idx, true);
->>>>>>> parent of 0ede0e7f (메모리 누수 해결 2)
     }
 
     public override void OnActionReceived(ActionBuffers actions)
