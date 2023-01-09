@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.unity.barracuda": "file:C:/unityML/barracuda-release",
     "com.unity.collab-proxy": "1.17.7",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.17",
@@ -8,7 +7,6 @@
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.inputsystem": "1.4.4",
     "com.unity.ml-agents": "2.0.1",
-    "com.unity.ml-agents.extensions": "file:C:/unityML/ml-agents-release_20/com.unity.ml-agents.extensions",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.4",
