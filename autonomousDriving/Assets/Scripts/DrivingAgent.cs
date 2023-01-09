@@ -15,7 +15,7 @@ public class DrivingAgent : Agent
     private GameObject[] wheelMesh = new GameObject[4];
 
     [SerializeField]
-    private float power; // ¹ÙÄû¸¦ È¸Àü½ÃÅ³ Èû
+    private float power;
 
     [SerializeField]
     private float downForceValue;
@@ -47,20 +47,18 @@ public class DrivingAgent : Agent
 
     public override void Initialize()
     {
-        MaxStep = 10000;
+        MaxStep = 5000;
 
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
-        //stageManager = transform.parent.GetComponent<StageManager>();
+        stageManager = transform.parent.GetComponent<StageManager>();
 
-        //idx = Random.Range(0, 5);
+        idx = Random.Range(0, 5);
 
-        // ¹«°Ô Áß½ÉÀ» yÃà ¾Æ·¡¹æÇâÀ¸·Î ³·Ãá´Ù.
         rigidbody.centerOfMass = new Vector3(0, -1f, 0);
 
         for (int i = 0; i < wheelMesh.Length; i++)
         {
-            // ÈÙÄÝ¶óÀÌ´õÀÇ À§Ä¡¸¦ ¹ÙÄû¸Þ½¬ÀÇ À§Ä¡·Î °¢°¢ ÀÌµ¿½ÃÅ²´Ù.
             wheels[i].steerAngle = 90;
             wheels[i].transform.position = wheelMesh[i].transform.position;
         }
@@ -69,18 +67,14 @@ public class DrivingAgent : Agent
     public override void OnEpisodeBegin()
     {
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
-        transform.localPosition = new Vector3(0f, 0.2f, 0);
+        transform.localPosition = new Vector3(0, 8f, 0);
         transform.localRotation = Quaternion.identity;
 
-        /*stageManager.ActiveMap(idx, false);
+        stageManager.ActiveMap(idx, false);
         idx = Random.Range(0, 5);
-<<<<<<< HEAD
-        stageManager.ActiveMap(idx, true);*/
+        stageManager.ActiveMap(idx, true);
 
         Resources.UnloadUnusedAssets();
-=======
-        stageManager.ActiveMap(idx, true);
->>>>>>> parent of 0ede0e7f (ë©”ëª¨ë¦¬ ëˆ„ìˆ˜ í•´ê²° 2)
     }
 
     public override void OnActionReceived(ActionBuffers actions)
