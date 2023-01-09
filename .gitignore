@@ -3,6 +3,9 @@
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9d0e9d9f001e72b907168d95f6d03c2834ffa963
 **/[Ll]ibrary/
 **/[Tt]emp/
 **/[Oo]bj/
@@ -10,6 +13,7 @@
 **/[Bb]uilds/
 **/[Ll]ogs/
 **/[Mm]emoryCaptures/
+<<<<<<< HEAD
 =======
 /[Ll]ibrary/
 /[Tt]emp/
@@ -19,6 +23,8 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 >>>>>>> parent of 64297de9 (프로젝트 생성 2)
+=======
+>>>>>>> 9d0e9d9f001e72b907168d95f6d03c2834ffa963
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -67,6 +73,7 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+<<<<<<< HEAD
 autonomousDriving/Library/Bee/fullprofile.json
 autonomousDriving/Library/Bee/tundra.digestcache
 autonomousDriving/Library/Bee/tundra.log.json
@@ -75,3 +82,6 @@ autonomousDriving/Library/SceneVisibilityState.asset
 autonomousDriving/Library/Search/transactions.db
 autonomousDriving/Library/StateCache/MainStageHierarchy/4d/4d2a36d9faf65734f0bbefb3ee623532.json
 autonomousDriving/Library/StateCache/SceneView/8c/8cd7c613bf844de3b80696e27a479d5e.json
+=======
+
+>>>>>>> 9d0e9d9f001e72b907168d95f6d03c2834ffa963
