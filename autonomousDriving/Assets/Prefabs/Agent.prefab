@@ -384,7 +384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 735886306340697592}
   - component: {fileID: 735886306340697594}
-  - component: {fileID: 6371648388988107539}
+  - component: {fileID: 6012134869222418039}
   m_Layer: 0
   m_Name: Cam
   m_TagString: Untagged
@@ -440,7 +440,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 8ac729e4c01270948822e6780d17e041, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: f330c45954d537e429f872cd8cd211b0, type: 2}
   m_TargetDisplay: 1
   m_TargetEye: 3
   m_HDR: 1
@@ -450,7 +450,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &6371648388988107539
+--- !u!114 &6012134869222418039
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -459,7 +459,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 735886306340697593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f7c8092e08778e4cbf3b45e0af214e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 412a04387c6e2ec4b92f223edb0905fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rawImage: {fileID: 0}
@@ -654,7 +654,6 @@ MonoBehaviour:
   m_Height: 84
   m_Grayscale: 1
   m_ObservationType: 0
-  m_RuntimeCameraEnable: 0
   m_ObservationStacks: 2
   m_Compression: 1
 --- !u!1 &7488306121088184896
@@ -759,7 +758,7 @@ GameObject:
   - component: {fileID: 7488306121086082277}
   m_Layer: 0
   m_Name: Agent
-  m_TagString: Untagged
+  m_TagString: agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -898,7 +897,6 @@ MonoBehaviour:
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
-  m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
 --- !u!114 &7488306121086082283
 MonoBehaviour:
@@ -1290,6 +1288,5 @@ MonoBehaviour:
   m_Height: 42
   m_Grayscale: 1
   m_ObservationType: 0
-  m_RuntimeCameraEnable: 0
   m_ObservationStacks: 5
   m_Compression: 1
