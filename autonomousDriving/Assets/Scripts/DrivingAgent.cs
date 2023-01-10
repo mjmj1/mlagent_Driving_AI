@@ -105,13 +105,13 @@ public class DrivingAgent : Agent
     {
         if (other.CompareTag("DeathLine"))
         {
-            SetReward(-1f);
+            SetReward(-3f);
             EndEpisode();
         }
 
         if (other.CompareTag("SafeZone"))
         {
-            AddReward(0.1f * reward);
+            AddReward(1f * reward);
         }
 
         if (other.CompareTag("StopLine"))
@@ -124,12 +124,12 @@ public class DrivingAgent : Agent
     {
         if (other.CompareTag("SafeZone"))
         { 
-            AddReward(-0.5f / MaxStep);
+            AddReward(-1f / MaxStep);
         }
 
         if (other.CompareTag("StopZone"))
         {
-            AddReward(0.6f / MaxStep);
+            AddReward(1.5f / MaxStep);
         }
     }
 

@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5707142555524331565, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5707142555524331566, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -289,6 +293,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5707142555524331565, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5707142555524331566, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -350,6 +358,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5707142555524331565, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5707142555524331566, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -410,6 +422,10 @@ PrefabInstance:
     - target: {fileID: 5707142555524331565, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
       propertyPath: m_Name
       value: Stage (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707142555524331565, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5707142555524331566, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
       propertyPath: m_RootOrder
