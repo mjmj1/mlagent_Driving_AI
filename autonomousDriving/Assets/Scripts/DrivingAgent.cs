@@ -111,12 +111,7 @@ public class DrivingAgent : Agent
 
         if (other.CompareTag("SafeZone"))
         {
-            AddReward(0.01f * reward);
-        }
-
-        if (other.CompareTag("StopLine"))
-        {
-            AddReward(0.05f * reward);
+            AddReward(0.1f * reward);
         }
     }
 
