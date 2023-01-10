@@ -105,7 +105,7 @@ public class DrivingAgent : Agent
     {
         if (other.CompareTag("DeathLine"))
         {
-            SetReward(-0.5f);
+            SetReward(-1f);
             EndEpisode();
         }
 
@@ -123,8 +123,13 @@ public class DrivingAgent : Agent
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("SafeZone"))
+        { 
+            AddReward(-0.5f / MaxStep);
+        }
+
+        if (other.CompareTag("StopZone"))
         {
-            AddReward(1f / MaxStep);
+            AddReward(0.6f / MaxStep);
         }
     }
 

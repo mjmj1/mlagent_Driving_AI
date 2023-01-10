@@ -24,6 +24,7 @@ TagManager:
   - SafeZone
   - map
   - StopLine
+  - StopZone
   layers:
   - Default
   - TransparentFX
