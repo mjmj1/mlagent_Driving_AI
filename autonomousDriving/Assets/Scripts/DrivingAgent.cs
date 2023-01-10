@@ -1,6 +1,5 @@
 using UnityEngine;
 using Unity.MLAgents;
-using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
 public class DrivingAgent : Agent
@@ -113,6 +112,11 @@ public class DrivingAgent : Agent
         if (other.CompareTag("SafeZone"))
         {
             AddReward(0.1f * reward);
+        }
+
+        if (other.CompareTag("StopLine"))
+        {
+            AddReward(0.5f * reward);
         }
     }
 
