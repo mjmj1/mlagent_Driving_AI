@@ -2,7 +2,6 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
-using OpenCvSharp;
 
 public class DrivingAgent : Agent
 {
@@ -34,10 +33,8 @@ public class DrivingAgent : Agent
 
     private new Transform transform;
     private new Rigidbody rigidbody;
-    private StageManager stageManager;
 
     float reward;
-    int idx;
 
     public void Update()
     {
@@ -51,9 +48,6 @@ public class DrivingAgent : Agent
 
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
-        //stageManager = transform.parent.GetComponent<StageManager>();
-
-        //idx = Random.Range(0, 5);
 
         // 무게 중심을 y축 아래방향으로 낮춘다.
         rigidbody.centerOfMass = new Vector3(0, -1f, 0);
@@ -71,10 +65,6 @@ public class DrivingAgent : Agent
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
         transform.localPosition = new Vector3(0f, 0.2f, 0);
         transform.localRotation = Quaternion.identity;
-
-        /*stageManager.ActiveMap(idx, false);
-        idx = Random.Range(0, 5);
-        stageManager.ActiveMap(idx, true);*/
 
         Resources.UnloadUnusedAssets();
     }

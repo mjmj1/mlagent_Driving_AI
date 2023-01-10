@@ -260,8 +260,6 @@ public class LaneDetect : MonoBehaviour
         Texture2D img_copy = cam.targetTexture.toTexture2D();
         Mat img_frame = OpenCvSharp.Unity.TextureToMat(img_copy);
 
-        DestroyImmediate(img_copy);
-
         Mat img_filter = filter_colors(img_frame);
 
         //3. 영상을 GrayScale 으로 변환한다.
