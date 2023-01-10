@@ -16,6 +16,9 @@ public class TrafficLight : MonoBehaviour
     [SerializeField]
     private GameObject DeathLine;
 
+    [SerializeField]
+    private GameObject SafeLine;
+
     public float count = 10f;
 
     void Update()
@@ -26,6 +29,7 @@ public class TrafficLight : MonoBehaviour
             Yellow.SetActive(true);
             Green.SetActive(true);
             DeathLine.SetActive(true);
+            SafeLine.SetActive(false);
 
             count = Random.Range(20, 30);
         }
@@ -42,6 +46,7 @@ public class TrafficLight : MonoBehaviour
             Yellow.SetActive(true);
             Green.SetActive(false);
             DeathLine.SetActive(false);
+            SafeLine.SetActive(true);
 
             count -= Time.deltaTime;
         }

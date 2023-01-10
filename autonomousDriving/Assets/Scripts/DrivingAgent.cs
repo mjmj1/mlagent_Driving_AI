@@ -1,6 +1,5 @@
 using UnityEngine;
 using Unity.MLAgents;
-using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
 public class DrivingAgent : Agent
@@ -106,7 +105,7 @@ public class DrivingAgent : Agent
     {
         if (other.CompareTag("DeathLine"))
         {
-            SetReward(-0.5f);
+            SetReward(-1f);
             EndEpisode();
         }
 
@@ -114,13 +113,23 @@ public class DrivingAgent : Agent
         {
             AddReward(0.1f * reward);
         }
+
+        if (other.CompareTag("StopLine"))
+        {
+            AddReward(0.5f * reward);
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("SafeZone"))
+        { 
+            AddReward(-0.5f / MaxStep);
+        }
+
+        if (other.CompareTag("StopZone"))
         {
-            AddReward(1f / MaxStep);
+            AddReward(0.6f / MaxStep);
         }
     }
 

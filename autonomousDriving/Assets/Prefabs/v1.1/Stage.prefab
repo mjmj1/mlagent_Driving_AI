@@ -290,6 +290,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5707142555524331566}
     m_Modifications:
+    - target: {fileID: 4466354399072830736, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4518976187235001062, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: rawImage
       value: 
