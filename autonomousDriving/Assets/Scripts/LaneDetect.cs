@@ -37,7 +37,9 @@ public class LaneDetect : MonoBehaviour
     Point left_b, right_b;
     bool left_detect = false, right_detect = false;
 
-    double poly_height = 30;
+    double poly_height = 50;
+    double side_width = 70;
+    double side_width_m = 200;
 
     Mat filter_colors(Mat img_frame)
     {
@@ -80,10 +82,10 @@ public class LaneDetect : MonoBehaviour
             new Point((width *(1 - poly_top_width)) / 2, height - height * poly_height),
             new Point(width -(width *(1 - poly_top_width)) / 2, height - height * poly_height),
 	        new Point(width -(width *(1 - poly_bottom_width)) / 2, height)*/
-            new Point(0, height),
-            new Point(width, height),
-            new Point(width, height / 2 - poly_height),
-            new Point(0, height / 2 - poly_height)
+            new Point(side_width, height),
+            new Point(width - side_width, height),
+            new Point(width - side_width_m, height / 2  + poly_height),
+            new Point(side_width_m, height / 2 + poly_height)
         };
 
         //정점으로 정의된 다각형 내부의 색상을 채워 그린다.

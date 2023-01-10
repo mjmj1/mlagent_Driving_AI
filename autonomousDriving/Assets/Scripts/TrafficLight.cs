@@ -19,9 +19,6 @@ public class TrafficLight : MonoBehaviour
     [SerializeField]
     private GameObject StopZone;
 
-    [SerializeField]
-    private GameObject BenefitLine;
-
     public float count = 10f;
 
     void Update()
@@ -35,7 +32,6 @@ public class TrafficLight : MonoBehaviour
             
             StopLine.SetActive(true);
             StopZone.SetActive(true);
-            BenefitLine.SetActive(false);
 
             count = Random.Range(20, 30);
         }
@@ -56,7 +52,6 @@ public class TrafficLight : MonoBehaviour
 
             StopLine.SetActive(false);
             StopZone.SetActive(false);
-            BenefitLine.SetActive(true);
 
             count -= Time.deltaTime;
         }
