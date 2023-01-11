@@ -128,6 +128,14 @@ public class DrivingAgent : Agent
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("StopZone"))
+        {
+            AddReward(0.1f * reward);
+        }
+    }
+
     void Drive(float vertical)
     {
         // 전륜 구동일 때
