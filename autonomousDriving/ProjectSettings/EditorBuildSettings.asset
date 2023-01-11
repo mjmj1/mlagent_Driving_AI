@@ -6,4 +6,4 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes: []
   m_configObjects:
-    com.unity.ml-agents.settings: {fileID: 11400000, guid: 70eeb3cde5c922e4fb0c8a5a3417a9fd, type: 2}
+    com.unity.ml-agents.settings: {fileID: 11400000, guid: 9d82f570b7f936b46b3ee611f86b8a80, type: 2}

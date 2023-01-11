@@ -308,11 +308,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4518976187235001056, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01059
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4518976187235001056, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01413
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4518976187235001056, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -344,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4518976187235001063, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: field of view
-      value: 80
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 4518976187235001063, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: far clip plane

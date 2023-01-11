@@ -31,7 +31,6 @@ public class LaneDetect : MonoBehaviour
     List<List<Vec4i>> separated_lines = new();
     List<Point> lane = new();
 
-    //double img_size;
     double img_center;
     double left_m, right_m;
     Point left_b, right_b;

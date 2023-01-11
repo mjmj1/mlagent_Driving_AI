@@ -90,7 +90,7 @@ public class DrivingAgent : Agent
             EndEpisode();
         }
 
-        Debug.Log(transform.parent.name + " : " + action[0] + ", " + action[1]);
+        //Debug.Log(transform.parent.name + " : " + action[0] + ", " + action[1]);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
