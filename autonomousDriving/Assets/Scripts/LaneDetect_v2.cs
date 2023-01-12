@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using OpenCvSharp;
 using UnityEngine.UI;
-using NumSharp;
+using System;
+using System.Linq;
 
 public class LaneDetect_v2 : MonoBehaviour
 {
@@ -13,8 +14,6 @@ public class LaneDetect_v2 : MonoBehaviour
 
     Mat Process(Mat image)
     {
-        Mat output = new();
-
         int height = image.Height;
         int width = image.Width;
 
@@ -27,15 +26,19 @@ public class LaneDetect_v2 : MonoBehaviour
         };
 
         Mat[] mats = Bird_eye_view(image, width, height, region_of_interest_vertices);
-        Mat bv_crop = Color_filter(mats[0]);
-        int[] bases = Plothistogram(bv_crop);
-        //Mat bases = Plothistogram(bv_crop);
+        Mat bv_crop = Color_filter(mats[0]);    //8UC1
+        Mat histogram = Lane_histogram(bv_crop);
 
-        /*ret = slide_window_search(bv_crop, bases[0], bases[1]);
+        Point leftbases;
+        Point rightbases;
+        Lane_peak(histogram, out leftbases, out rightbases);
 
-        pts_mean, result = draw_lane_lines(image, bv, ret_m, ret);
+        List<List<Point>> temp = slide_window_search(bv_crop, leftbases, rightbases);
 
-        */
+        foreach (List<Point> temp_list in temp)
+        {
+            Debug.Log(temp_list[0].Length() + ", " + temp_list[1].Length());
+        }
 
         return bv_crop;
     }
@@ -103,44 +106,126 @@ public class LaneDetect_v2 : MonoBehaviour
         return output;
     }
 
-    int[] Plothistogram(Mat image)
+    Mat Lane_histogram(Mat image)
     {
-        double[,] copied = new double[image.Width, image.Height];
-        image.GetArray(0, 0, copied);
-
-        int[] output = new int[2];
-
-        NDArray copy = new NDArray(copied);
-
-        NDArray histogram = np.sum(copy[copy["320:"], copy[":"]], 0);
-
-        int midpoint = copy.shape[0] / 2;
-
-        int leftbase = np.argmax(histogram[0, midpoint]);
-        int rightbase = np.argmax(histogram[midpoint, histogram.shape[0]]) + midpoint;
-
-        output[0] = leftbase;
-        output[1] = rightbase;
-
-        Debug.Log(midpoint);
+        Mat output = new();
+        Mat cropped = new(image, new OpenCvSharp.Rect(0, image.Rows / 2, image.Cols, image.Rows / 2));
+        Cv2.Reduce(cropped / 255, output, ReduceDimension.Row, ReduceTypes.Sum, 4);
 
         return output;
     }
 
-    /*Mat slide_window_search(Mat image, int left_current, int right_current)
+    void Lane_peak(Mat image, out Point left_max_loc, out Point right_max_loc)
     {
-        byte[] binary_warped = image.ToBytes();
-        var output = np.dstack(binary_warped, binary_warped, binary_warped);
-        int nwindow = 12;
+        Point temp;
 
-        Mat nonzero = image.FindNonZero();
-        byte[] b_nonzero = nonzero.ToBytes();
+        double min, max;
+        int midpoint = image.Cols / 2;
 
-        Mat nonzero_y = 
+        Mat left_half = image.ColRange(0, midpoint);
+        Mat right_half = image.ColRange(midpoint, image.Cols);
 
-        var nonzero_y = np.array[b_nonzero[0]];
+        Cv2.MinMaxLoc(left_half, out min, out max, out temp, out left_max_loc);
+        Cv2.MinMaxLoc(right_half, out min, out max, out temp, out right_max_loc);
+        right_max_loc += new Point(midpoint, 0);
 
-    }*/
+        return;
+    }
+
+    List<List<Point>> slide_window_search(Mat binary_warped, Point left_current, Point right_current)
+    {
+        Mat output = new(binary_warped.Size(), MatType.CV_8UC1);
+
+        int nwindows = 12;
+        int window_height = binary_warped.Height / nwindows;
+
+        List<Point> nonzero = new();
+
+        Cv2.FindNonZero(binary_warped, OutputArray.Create(nonzero));
+
+        List<int> nonzero_x = new();
+        List<int> nonzero_y = new();
+
+        foreach (Point a in nonzero)
+        {
+            nonzero_x.Add(a.X);  //선이 있는 부분 x의 인덱스 값
+        }
+
+        foreach (Point a in nonzero)
+        {
+            nonzero_y.Add(a.Y);  //선이 있는 부분 y의 인덱스 값
+        }
+
+        int margin = 30;
+        int minpix = 2;
+        int thickness = 2;
+
+        Scalar color = new Scalar(0, 255, 0);
+
+        List<Point> left_lane = new();
+        List<Point> right_lane = new();
+
+        for (int w = 0; w < nwindows; w++)
+        {
+            int win_y_low = binary_warped.Height - (w + 1) * window_height;  // window 윗부분
+            int win_y_high = binary_warped.Height - w * window_height;  // window 아랫 부분
+            int win_xleft_low = left_current.X - margin;  // 왼쪽 window 왼쪽 위
+            int win_xleft_high = left_current.X + margin; // 왼쪽 window 오른쪽 아래
+            int win_xright_low = right_current.X - margin;  // 오른쪽 window 왼쪽 위
+            int win_xright_high = right_current.X + margin; // 오른쪽 window 오른쪽 아래
+
+            Cv2.Rectangle(output, new Point(win_xleft_low, win_y_low), new Point(win_xleft_high, win_y_high), color, thickness);
+            Cv2.Rectangle(output, new Point(win_xright_low, win_y_low), new Point(win_xright_high, win_y_high), color, thickness);
+
+            if ((nonzero_y[w] >= win_y_low) & (nonzero_y[w] < win_y_high) & (nonzero_x[w] >= win_xleft_low) & (nonzero_x[w] < win_xleft_high))
+            {
+                Point good_left = new Point(nonzero_x[w], nonzero_y[w]);
+                left_lane.Add(good_left);
+            }
+
+            if ((nonzero_y[w] >= win_y_low) & (nonzero_y[w] < win_y_high) & (nonzero_x[w] >= win_xright_low) & (nonzero_x[w] < win_xright_high))
+            {
+                Point good_right = new Point(nonzero_x[w], nonzero_y[w]);
+                right_lane.Add(good_right);
+            }
+
+            /*if (good_left.Length() > minpix)
+            {
+                left_current = nonzero_x.Average(good_left.X);
+            }
+            if (good_right.Length() > minpix)
+            {
+                right_current = np.int32(np.mean(nonzero_x[good_right]);
+            }*/
+        }
+
+        return new List<List<Point>> { left_lane, right_lane };
+
+        /*left_lane = np.concatenate(left_lane);  // np.concatenate() -> array를 1차원으로 합침
+        right_lane = np.concatenate(right_lane);
+
+        leftx = nonzero_x[left_lane];
+        lefty = nonzero_y[left_lane];
+        rightx = nonzero_x[right_lane];
+        righty = nonzero_y[right_lane];
+
+        left_fit = np.polyfit(lefty, leftx, 2);
+        right_fit = np.polyfit(righty, rightx, 2);
+
+        ploty = np.linspace(0, binary_warped.shape[0] - 1, binary_warped.shape[0]);
+        left_fitx = left_fit[0] * ploty * *2 + left_fit[1] * ploty + left_fit[2];
+        right_fitx = right_fit[0] * ploty * *2 + right_fit[1] * ploty + right_fit[2];
+
+        ltx = np.trunc(left_fitx);  // np.trunc() -> 소수점 부분을 버림
+        rtx = np.trunc(right_fitx);
+
+        out_img[nonzero_y[left_lane], nonzero_x[left_lane]] = [255, 0, 0];
+        out_img[nonzero_y[right_lane], nonzero_x[right_lane]] = [0, 0, 255];
+
+        ret = { 'left_fitx': ltx, 'right_fitx': rtx, 'ploty': ploty };
+
+        return ret;*/
+    }
 
     void Start()
     {
@@ -157,6 +242,5 @@ public class LaneDetect_v2 : MonoBehaviour
         rawImage.texture = OpenCvSharp.Unity.MatToTexture(img_result);
 
         Resources.UnloadUnusedAssets();
-
     }
 }
