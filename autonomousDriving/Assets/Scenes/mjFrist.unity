@@ -484,10 +484,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5512083398291851233, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
-      propertyPath: m_TargetTexture
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5707142555524331565, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
       propertyPath: m_Name
       value: Stage
@@ -535,18 +531,6 @@ PrefabInstance:
     - target: {fileID: 5707142555524331566, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5707142555761221649, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104883313046111484, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 7104883313046111484, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 160
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92bdf3553d622c348b793eb579c2f36c, type: 3}

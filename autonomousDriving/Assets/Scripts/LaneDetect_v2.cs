@@ -144,20 +144,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.FindNonZero(binary_warped, OutputArray.Create(nonzero));
 
-        List<int> nonzero_x = new();
-        List<int> nonzero_y = new();
-
-        foreach (Point a in nonzero)
-        {
-            nonzero_x.Add(a.X);  //선이 있는 부분 x의 인덱스 값
-        }
-
-        foreach (Point a in nonzero)
-        {
-            nonzero_y.Add(a.Y);  //선이 있는 부분 y의 인덱스 값
-        }
-
-        int margin = 10;
+        int margin = 20;
         int minpix = 2;
         int thickness = 2;
 
@@ -178,24 +165,22 @@ public class LaneDetect_v2 : MonoBehaviour
             Cv2.Rectangle(output, new Point(win_xleft_low, win_y_low), new Point(win_xleft_high, win_y_high), color, thickness);
             Cv2.Rectangle(output, new Point(win_xright_low, win_y_low), new Point(win_xright_high, win_y_high), color, thickness);
 
-            for(int i = 0; i < nonzero_y.Count; i++)
+            for(int i = 0; i < nonzero.Count; i++)
             {
-                if ((nonzero_y[i] >= win_y_low) & (nonzero_y[i] < win_y_high) & (nonzero_x[i] >= win_xleft_low) & (nonzero_x[i] < win_xleft_high))
+                if ((nonzero[i].Y >= win_y_low) & (nonzero[i].Y < win_y_high) & (nonzero[i].X >= win_xleft_low) & (nonzero[i].X < win_xleft_high))
                 {
-                    Point good_left = new Point(nonzero_x[i], nonzero_y[i]);
+                    Point good_left = new Point(nonzero[i].X, nonzero[i].Y);
                     left_lane.Add(good_left);
+                    break;
                 }
-            }
 
-            for (int i = 0; i < nonzero_y.Count; i++)
-            {
-                if ((nonzero_y[i] >= win_y_low) & (nonzero_y[i] < win_y_high) & (nonzero_x[i] >= win_xright_low) & (nonzero_x[i] < win_xright_high))
+                if ((nonzero[i].Y >= win_y_low) & (nonzero[i].Y < win_y_high) & (nonzero[i].X >= win_xright_low) & (nonzero[i].X < win_xright_high))
                 {
-                    Point good_right = new Point(nonzero_x[i], nonzero_y[i]);
+                    Point good_right = new Point(nonzero[i].X, nonzero[i].Y);
                     right_lane.Add(good_right);
+                    break;
                 }
             }
-            
 
             /*if (good_left.Length() > minpix)
             {
