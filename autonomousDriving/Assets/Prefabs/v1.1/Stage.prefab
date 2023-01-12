@@ -196,7 +196,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 160, y: 160}
+  m_ReferenceResolution: {x: 320, y: 320}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 0
@@ -305,7 +305,7 @@ PrefabInstance:
     - target: {fileID: 4466354399072830736, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 8400000, guid: f330c45954d537e429f872cd8cd211b0, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 4466354399072830736, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: orthographic size
       value: 2

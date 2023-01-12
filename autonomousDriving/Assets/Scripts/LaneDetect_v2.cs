@@ -37,10 +37,13 @@ public class LaneDetect_v2 : MonoBehaviour
 
         foreach (List<Point> temp_list in temp)
         {
+            Cv2.Circle(mats[0], temp_list[0], 5, Scalar.Red);
+            Cv2.Circle(mats[0], temp_list[1], 5, Scalar.Red);
             Debug.Log(temp_list[0].Length() + ", " + temp_list[1].Length());
         }
 
-        return bv_crop;
+        return mats[0];
+        //return bv_crop;
     }
 
     Mat[] Bird_eye_view(Mat img_frame, int width, int height, Point[] region_of_interest_vertices)
@@ -128,8 +131,6 @@ public class LaneDetect_v2 : MonoBehaviour
         Cv2.MinMaxLoc(left_half, out min, out max, out temp, out left_max_loc);
         Cv2.MinMaxLoc(right_half, out min, out max, out temp, out right_max_loc);
         right_max_loc += new Point(midpoint, 0);
-
-        return;
     }
 
     List<List<Point>> slide_window_search(Mat binary_warped, Point left_current, Point right_current)
@@ -156,7 +157,7 @@ public class LaneDetect_v2 : MonoBehaviour
             nonzero_y.Add(a.Y);  //선이 있는 부분 y의 인덱스 값
         }
 
-        int margin = 30;
+        int margin = 10;
         int minpix = 2;
         int thickness = 2;
 
@@ -177,17 +178,24 @@ public class LaneDetect_v2 : MonoBehaviour
             Cv2.Rectangle(output, new Point(win_xleft_low, win_y_low), new Point(win_xleft_high, win_y_high), color, thickness);
             Cv2.Rectangle(output, new Point(win_xright_low, win_y_low), new Point(win_xright_high, win_y_high), color, thickness);
 
-            if ((nonzero_y[w] >= win_y_low) & (nonzero_y[w] < win_y_high) & (nonzero_x[w] >= win_xleft_low) & (nonzero_x[w] < win_xleft_high))
+            for(int i = 0; i < nonzero_y.Count; i++)
             {
-                Point good_left = new Point(nonzero_x[w], nonzero_y[w]);
-                left_lane.Add(good_left);
+                if ((nonzero_y[i] >= win_y_low) & (nonzero_y[i] < win_y_high) & (nonzero_x[i] >= win_xleft_low) & (nonzero_x[i] < win_xleft_high))
+                {
+                    Point good_left = new Point(nonzero_x[i], nonzero_y[i]);
+                    left_lane.Add(good_left);
+                }
             }
 
-            if ((nonzero_y[w] >= win_y_low) & (nonzero_y[w] < win_y_high) & (nonzero_x[w] >= win_xright_low) & (nonzero_x[w] < win_xright_high))
+            for (int i = 0; i < nonzero_y.Count; i++)
             {
-                Point good_right = new Point(nonzero_x[w], nonzero_y[w]);
-                right_lane.Add(good_right);
+                if ((nonzero_y[i] >= win_y_low) & (nonzero_y[i] < win_y_high) & (nonzero_x[i] >= win_xright_low) & (nonzero_x[i] < win_xright_high))
+                {
+                    Point good_right = new Point(nonzero_x[i], nonzero_y[i]);
+                    right_lane.Add(good_right);
+                }
             }
+            
 
             /*if (good_left.Length() > minpix)
             {
