@@ -62,7 +62,7 @@ public class DrivingAgent : Agent
     public override void OnEpisodeBegin()
     {
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
-        transform.localPosition = new Vector3(0f, 0.5f, 0);
+        transform.localPosition = new Vector3(58f, 0.5f, 0);
         transform.localRotation = Quaternion.identity;
 
         Resources.UnloadUnusedAssets();
