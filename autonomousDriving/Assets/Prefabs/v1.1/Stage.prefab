@@ -232,6 +232,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Field_rowpoly
       objectReference: {fileID: 0}
+    - target: {fileID: 4418265955848031028, guid: 721a174ca25c8604285df1ae92e46f0b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4418265955848031029, guid: 721a174ca25c8604285df1ae92e46f0b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -340,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4518976187235001056, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 4518976187235001062, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: rawImage
@@ -384,7 +388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6010910127875045744, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 58
       objectReference: {fileID: 0}
     - target: {fileID: 6010910127875045744, guid: 9ca29f1aadad7a549882dbfc4d5408de, type: 3}
       propertyPath: m_LocalPosition.y
