@@ -21,8 +21,8 @@ public class LaneDetect_v2 : MonoBehaviour
         Point[] region_of_interest_vertices =
             {
             new Point(0, height),
-            new Point(width * 0.35, height * 0.65),
-            new Point(width * 0.65, height * 0.65),
+            new Point(width * 0.21, height * 0.6),
+            new Point(width * 0.79, height * 0.6),
             new Point(width, height)
         };
 
@@ -104,7 +104,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
 
-        Cv2.InRange(hsv, new(0, 0, 160), new(255, 255, 255), white_mask);
+        Cv2.InRange(hsv, new(240, 240, 240), new(255, 255, 255), white_mask);
         Cv2.InRange(hsv, new(20, 30, 100), new(40, 255, 255), yellow_mask);
         
         Cv2.BitwiseAnd(image, image, white_img, white_mask);
@@ -143,14 +143,14 @@ public class LaneDetect_v2 : MonoBehaviour
 
     List<List<Point>> slide_window_search(Mat binary_warped, Point left_current, Point right_current)
     {
-        int nwindows = 12;
+        int nwindows = 10;
         int window_height = binary_warped.Height / nwindows;
 
         List<Point> nonzero = new();
 
         Cv2.FindNonZero(binary_warped, OutputArray.Create(nonzero));
 
-        int margin = 20;
+        int margin = 50;
 
         List<Point> left_lane = new();
         List<Point> right_lane = new();

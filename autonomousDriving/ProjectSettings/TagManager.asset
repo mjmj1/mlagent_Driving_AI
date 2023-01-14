@@ -23,8 +23,6 @@ TagManager:
   - DeathLine
   - SafeZone
   - map
-  - StopLine
-  - StopZone
   layers:
   - Default
   - TransparentFX

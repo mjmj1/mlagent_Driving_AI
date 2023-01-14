@@ -62,7 +62,7 @@ public class DrivingAgent : Agent
     public override void OnEpisodeBegin()
     {
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
-        transform.localPosition = new Vector3(0, 0.5f, 0);
+        transform.localPosition = new Vector3(0, 2f, 0);
         transform.localRotation = Quaternion.identity;
 
         Resources.UnloadUnusedAssets();
@@ -120,19 +120,6 @@ public class DrivingAgent : Agent
         if (other.CompareTag("SafeZone"))
         { 
             AddReward(-1f / MaxStep);
-        }
-
-        if (other.CompareTag("StopZone"))
-        {
-            AddReward(1f / MaxStep);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("StopZone"))
-        {
-            AddReward(0.1f * reward);
         }
     }
 
