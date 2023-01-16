@@ -21,8 +21,8 @@ public class LaneDetect_v2 : MonoBehaviour
         Point[] region_of_interest_vertices =
             {
             new Point(0, height),
-            new Point(width * 0.21, height * 0.6),
-            new Point(width * 0.79, height * 0.6),
+            new Point(width * 0.27, height * 0.55),
+            new Point(width * 0.73, height * 0.55),
             new Point(width, height)
         };
 
@@ -30,24 +30,42 @@ public class LaneDetect_v2 : MonoBehaviour
         Mat bv_crop = Color_filter(mats[0]);    //8UC1
         Mat histogram = Lane_histogram(bv_crop);
 
+        Mat black = new(mats[0].Size(), MatType.CV_8UC3, Scalar.Black);
+
         Point leftbases;
         Point rightbases;
+
         Lane_peak(histogram, out leftbases, out rightbases);
 
         List<List<Point>> drawinfo = slide_window_search(bv_crop, leftbases, rightbases);
 
-        drawinfo[0].Insert(0, new Point(leftbases.X, height));
-        drawinfo[1].Insert(0, new Point(rightbases.X, height));
+        int left_idx = 0;
+        int right_idx = 0;
 
+        foreach(Point pt in drawinfo[0])
+        {
+            Cv2.Circle(mats[0], pt, 5, Scalar.Red);
+            Cv2.PutText(mats[0], left_idx.ToString(), pt, HersheyFonts.HersheySimplex, 1, Scalar.Red);
+            left_idx++;
+        }
+
+        foreach (Point pt in drawinfo[1])
+        {
+            Cv2.Circle(mats[0], pt, 5, Scalar.Green);
+            Cv2.PutText(mats[0], right_idx.ToString(), pt, HersheyFonts.HersheySimplex, 1, Scalar.Green);
+            right_idx++;
+        }
+
+        // 그리기
         List<Point> drawinfo_all = new(drawinfo[1]);
         drawinfo[0].Reverse();
         drawinfo_all.AddRange(drawinfo[0]);
 
-        Cv2.FillConvexPoly(mats[0], drawinfo_all, new Scalar(0, 255, 0));
+        Cv2.FillConvexPoly(black, drawinfo_all, new Scalar(0, 255, 0));
 
-        Cv2.Polylines(mats[0], drawinfo, false, new Scalar(0, 255, 255), 2);
+        Cv2.Polylines(black, drawinfo, false, new Scalar(0, 255, 255), 2);
 
-        Cv2.WarpPerspective(mats[0], output, mats[1], new Size(width, height));
+        Cv2.WarpPerspective(black, output, mats[1], new Size(width, height));
 
         Cv2.BitwiseOr(image, output, output);
 
@@ -143,20 +161,29 @@ public class LaneDetect_v2 : MonoBehaviour
 
     List<List<Point>> slide_window_search(Mat binary_warped, Point left_current, Point right_current)
     {
-        int nwindows = 10;
+        int nwindows = 12;
         int window_height = binary_warped.Height / nwindows;
+        int past_left_x = left_current.X;
+        int past_right_x = right_current.X;
 
         List<Point> nonzero = new();
 
         Cv2.FindNonZero(binary_warped, OutputArray.Create(nonzero));
 
-        int margin = 50;
+        int margin = 40;
 
         List<Point> left_lane = new();
         List<Point> right_lane = new();
 
+        List<Point> new_left_lane = new();
+        List<Point> new_right_lane = new();
+
+        new_left_lane.Add(new Point(left_current.X, binary_warped.Height));
+        new_right_lane.Add(new Point(right_current.X, binary_warped.Height));
+
         for (int w = 0; w < nwindows; w++)
         {
+            
             int win_y_low = binary_warped.Height - (w + 1) * window_height;  // window 윗부분
             int win_y_high = binary_warped.Height - w * window_height;  // window 아랫 부분
             int win_xleft_low = left_current.X - margin;  // 왼쪽 window 왼쪽 위
@@ -164,28 +191,62 @@ public class LaneDetect_v2 : MonoBehaviour
             int win_xright_low = right_current.X - margin;  // 오른쪽 window 왼쪽 위
             int win_xright_high = right_current.X + margin; // 오른쪽 window 오른쪽 아래
 
+            Point good_left;
+            Point good_right;
+
             foreach (Point pt in nonzero)
             {
-                if ((pt.Y >= win_y_low) & (pt.Y < win_y_high) & (pt.X >= win_xleft_low) & (pt.X < win_xleft_high))
+                if ((pt.Y == win_y_low) & (pt.X >= win_xleft_low) & (pt.X < win_xleft_high))
                 {
-                    Point good_left = new Point(pt.X, pt.Y);
+                    good_left = new Point(pt.X, pt.Y);
                     left_lane.Add(good_left);
-                    break;
                 }
             }
 
             foreach (Point pt in nonzero)
             {
-                if ((pt.Y >= win_y_low) & (pt.Y < win_y_high) & (pt.X >= win_xright_low) & (pt.X < win_xright_high))
+                if ((pt.Y == win_y_low) & (pt.X >= win_xright_low) & (pt.X < win_xright_high))
                 {
-                    Point good_right = new Point(pt.X, pt.Y);
+                    good_right = new Point(pt.X, pt.Y);
                     right_lane.Add(good_right);
-                    break;
                 }
             }
+
+            Point new_left = rePos_center(left_lane, past_left_x, win_y_low);
+            Point new_right = rePos_center(right_lane, past_right_x, win_y_low);
+
+            past_left_x = new_left.X;
+            past_right_x = new_right.X;
+
+            new_left_lane.Add(new_left);
+            new_right_lane.Add(new_right);
+
+            left_lane.Clear();
+            right_lane.Clear();
         }
 
-        return new List<List<Point>> { left_lane, right_lane };
+        return new List<List<Point>> { new_left_lane, new_right_lane };
+    }
+
+    Point rePos_center(List<Point> Pos, int curPos, int height)
+    {
+        int sum = 0;
+
+        foreach (Point pt in Pos)
+        {
+            sum += pt.X;
+        }
+
+        if(Pos.Count > 0)
+        {
+            int mean = sum / Pos.Count;
+            return new Point(mean, height);
+        }
+        else
+        {
+            return new Point(curPos, height);
+        }
+        //return new Point(mean, height);
     }
 
     void Start()
