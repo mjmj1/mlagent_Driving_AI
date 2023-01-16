@@ -21,6 +21,9 @@ public class DrivingAgent : Agent
     [SerializeField]
     private float radius = 6;
 
+    private StageManager stage;
+    int index = 0;
+
     enum driveType
     {
         FRONTDRIVE,
@@ -48,6 +51,8 @@ public class DrivingAgent : Agent
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
 
+        stage = transform.parent.GetComponent<StageManager>();
+
         // 무게 중심을 y축 아래방향으로 낮춘다.
         rigidbody.centerOfMass = new Vector3(0, -1f, 0);
 
@@ -61,9 +66,14 @@ public class DrivingAgent : Agent
 
     public override void OnEpisodeBegin()
     {
+
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
         transform.localPosition = new Vector3(0, 2f, 0);
         transform.localRotation = Quaternion.identity;
+
+        stage.ActiveMap(index, false);
+        index = Random.Range(0, 2);
+        stage.ActiveMap(index, true);
 
         Resources.UnloadUnusedAssets();
     }
