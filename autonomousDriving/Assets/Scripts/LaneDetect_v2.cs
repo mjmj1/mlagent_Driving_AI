@@ -21,8 +21,8 @@ public class LaneDetect_v2 : MonoBehaviour
         Point[] region_of_interest_vertices =
             {
             new Point(0, height),
-            new Point(width * 0.27, height * 0.55),
-            new Point(width * 0.73, height * 0.55),
+            new Point(width * 0.21, height * 0.6),
+            new Point(width * 0.79, height * 0.6),
             new Point(width, height)
         };
 
@@ -41,6 +41,11 @@ public class LaneDetect_v2 : MonoBehaviour
 
         int left_idx = 0;
         int right_idx = 0;
+
+        foreach(Point pt in region_of_interest_vertices)
+        {
+            Cv2.Circle(image, pt, 5, Scalar.Red);
+        }
 
         foreach(Point pt in drawinfo[0])
         {
@@ -122,7 +127,8 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
 
-        Cv2.InRange(hsv, new(240, 240, 240), new(255, 255, 255), white_mask);
+        //Cv2.InRange(hsv, new(240, 240, 240), new(255, 255, 255), white_mask);
+        Cv2.InRange(hsv, new(0, 0, 200), new(0, 0, 255), white_mask);
         Cv2.InRange(hsv, new(20, 30, 100), new(40, 255, 255), yellow_mask);
         
         Cv2.BitwiseAnd(image, image, white_img, white_mask);
@@ -170,7 +176,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.FindNonZero(binary_warped, OutputArray.Create(nonzero));
 
-        int margin = 40;
+        int margin = 50;
 
         List<Point> left_lane = new();
         List<Point> right_lane = new();
