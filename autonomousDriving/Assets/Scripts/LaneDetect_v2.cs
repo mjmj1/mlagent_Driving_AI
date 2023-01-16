@@ -183,9 +183,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         for (int w = 0; w < nwindows; w++)
         {
-            
             int win_y_low = binary_warped.Height - (w + 1) * window_height;  // window À­ºÎºÐ
-            int win_y_high = binary_warped.Height - w * window_height;  // window ¾Æ·§ ºÎºÐ
             int win_xleft_low = left_current.X - margin;  // ¿ÞÂÊ window ¿ÞÂÊ À§
             int win_xleft_high = left_current.X + margin; // ¿ÞÂÊ window ¿À¸¥ÂÊ ¾Æ·¡
             int win_xright_low = right_current.X - margin;  // ¿À¸¥ÂÊ window ¿ÞÂÊ À§
