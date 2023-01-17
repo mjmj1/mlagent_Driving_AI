@@ -66,7 +66,6 @@ public class DrivingAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
         transform.localPosition = new Vector3(0, 0.5f, 6f);
         transform.localRotation = Quaternion.identity;
@@ -113,7 +112,6 @@ public class DrivingAgent : Agent
         action[0] = Input.GetAxis("Vertical");
         action[1] = Input.GetAxis("Horizontal");
     }
-
 
     private void OnCollisionEnter(Collision collision)
     {

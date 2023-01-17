@@ -39,15 +39,16 @@ public class LaneDetect_v2 : MonoBehaviour
 
         List<List<Point>> drawinfo = slide_window_search(bv_crop, leftbases, rightbases);
 
-        int left_idx = 0;
-        int right_idx = 0;
+        #region 좌표 그리기
+        //int left_idx = 0;
+        //int right_idx = 0;
 
         /*foreach(Point pt in region_of_interest_vertices)
         {
             Cv2.Circle(image, pt, 5, Scalar.Red);
         }*/
 
-        foreach(Point pt in drawinfo[0])
+        /*foreach(Point pt in drawinfo[0])
         {
             Cv2.Circle(mats[0], pt, 5, Scalar.Red);
             Cv2.PutText(mats[0], left_idx.ToString(), pt, HersheyFonts.HersheySimplex, 1, Scalar.Red);
@@ -59,7 +60,8 @@ public class LaneDetect_v2 : MonoBehaviour
             Cv2.Circle(mats[0], pt, 5, Scalar.Green);
             Cv2.PutText(mats[0], right_idx.ToString(), pt, HersheyFonts.HersheySimplex, 1, Scalar.Green);
             right_idx++;
-        }
+        }*/
+        #endregion
 
         // 그리기
         List<Point> drawinfo_all = new(drawinfo[1]);
