@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    private List<GameObject> maps = new();
+    public List<GameObject> maps = new();
 
     void Start()
     {

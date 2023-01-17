@@ -71,9 +71,12 @@ public class DrivingAgent : Agent
         transform.localPosition = new Vector3(0, 2f, 0);
         transform.localRotation = Quaternion.identity;
 
-        stage.ActiveMap(index, false);
-        index = Random.Range(0, 4);
-        stage.ActiveMap(index, true);
+        if(stage.maps.Count > 0)
+        {
+            stage.ActiveMap(index, false);
+            index = Random.Range(0, 4);
+            stage.ActiveMap(index, true);
+        }
 
         Resources.UnloadUnusedAssets();
     }
@@ -109,6 +112,16 @@ public class DrivingAgent : Agent
 
         action[0] = Input.GetAxis("Vertical");
         action[1] = Input.GetAxis("Horizontal");
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("DeathLine"))
+        {
+            SetReward(-1f);
+            EndEpisode();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
