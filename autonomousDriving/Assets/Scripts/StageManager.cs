@@ -10,8 +10,8 @@ public class StageManager : MonoBehaviour
     {
         maps.Add(transform.GetChild(0).gameObject);
         maps.Add(transform.GetChild(1).gameObject);
-        maps.Add(transform.GetChild(2).gameObject);
-        maps.Add(transform.GetChild(3).gameObject);
+        //maps.Add(transform.GetChild(2).gameObject);
+        //maps.Add(transform.GetChild(3).gameObject);
         //maps.Add(transform.GetChild(4).gameObject);
     }
 

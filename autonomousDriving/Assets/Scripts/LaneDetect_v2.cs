@@ -21,8 +21,8 @@ public class LaneDetect_v2 : MonoBehaviour
         Point[] region_of_interest_vertices =
             {
             new Point(0, height),
-            new Point(width * 0.21, height * 0.6),
-            new Point(width * 0.79, height * 0.6),
+            new Point(width * 0.2, height * 0.65),
+            new Point(width * 0.8, height * 0.65),
             new Point(width, height)
         };
 
@@ -42,10 +42,10 @@ public class LaneDetect_v2 : MonoBehaviour
         int left_idx = 0;
         int right_idx = 0;
 
-        foreach(Point pt in region_of_interest_vertices)
+        /*foreach(Point pt in region_of_interest_vertices)
         {
             Cv2.Circle(image, pt, 5, Scalar.Red);
-        }
+        }*/
 
         foreach(Point pt in drawinfo[0])
         {
@@ -74,6 +74,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.BitwiseOr(image, output, output);
 
+        //return mats[0];
         return output;
     }
 
@@ -127,8 +128,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.CvtColor(image, hsv, ColorConversionCodes.BGR2HSV);
 
-        //Cv2.InRange(hsv, new(240, 240, 240), new(255, 255, 255), white_mask);
-        Cv2.InRange(hsv, new(0, 0, 200), new(0, 0, 255), white_mask);
+        Cv2.InRange(hsv, new(0, 0, 220), new(255, 70, 255), white_mask);
         Cv2.InRange(hsv, new(20, 30, 100), new(40, 255, 255), yellow_mask);
         
         Cv2.BitwiseAnd(image, image, white_img, white_mask);
@@ -169,18 +169,15 @@ public class LaneDetect_v2 : MonoBehaviour
     {
         int nwindows = 12;
         int window_height = binary_warped.Height / nwindows;
-        int past_left_x = left_current.X;
-        int past_right_x = right_current.X;
 
         List<Point> nonzero = new();
 
         Cv2.FindNonZero(binary_warped, OutputArray.Create(nonzero));
 
-        int margin = 50;
+        int margin = 60;
 
         List<Point> left_lane = new();
         List<Point> right_lane = new();
-
         List<Point> new_left_lane = new();
         List<Point> new_right_lane = new();
 
@@ -195,8 +192,8 @@ public class LaneDetect_v2 : MonoBehaviour
             int win_xright_low = right_current.X - margin;  // 오른쪽 window 왼쪽 위
             int win_xright_high = right_current.X + margin; // 오른쪽 window 오른쪽 아래
 
-            Point good_left;
-            Point good_right;
+            Point good_left = new();
+            Point good_right = new();
 
             foreach (Point pt in nonzero)
             {
@@ -216,14 +213,20 @@ public class LaneDetect_v2 : MonoBehaviour
                 }
             }
 
-            Point new_left = rePos_center(left_lane, past_left_x, win_y_low);
-            Point new_right = rePos_center(right_lane, past_right_x, win_y_low);
+            Point new_left = new();
+            Point new_right = new();
 
-            past_left_x = new_left.X;
-            past_right_x = new_right.X;
+            if (left_lane.Count > 0)
+            {
+                rePos_center(left_lane, ref new_left, good_left.Y);
+                new_left_lane.Add(new_left);
+            }
 
-            new_left_lane.Add(new_left);
-            new_right_lane.Add(new_right);
+            if (right_lane.Count > 0)
+            {
+                rePos_center(right_lane, ref new_right, good_right.Y);
+                new_right_lane.Add(new_right);
+            }
 
             left_lane.Clear();
             right_lane.Clear();
@@ -232,7 +235,7 @@ public class LaneDetect_v2 : MonoBehaviour
         return new List<List<Point>> { new_left_lane, new_right_lane };
     }
 
-    Point rePos_center(List<Point> Pos, int curPos, int height)
+    void rePos_center(List<Point> Pos, ref Point current, int height)
     {
         int sum = 0;
 
@@ -241,16 +244,8 @@ public class LaneDetect_v2 : MonoBehaviour
             sum += pt.X;
         }
 
-        if(Pos.Count > 0)
-        {
-            int mean = sum / Pos.Count;
-            return new Point(mean, height);
-        }
-        else
-        {
-            return new Point(curPos, height);
-        }
-        //return new Point(mean, height);
+         int mean = sum / Pos.Count;
+         current = new Point(mean, height);
     }
 
     void Start()

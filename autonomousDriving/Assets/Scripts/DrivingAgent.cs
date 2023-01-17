@@ -68,13 +68,13 @@ public class DrivingAgent : Agent
     {
 
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
-        transform.localPosition = new Vector3(0, 2f, 0);
+        transform.localPosition = new Vector3(0, 0.5f, 6f);
         transform.localRotation = Quaternion.identity;
 
         if(stage.maps.Count > 0)
         {
             stage.ActiveMap(index, false);
-            index = Random.Range(0, 4);
+            index = Random.Range(0, 2);
             stage.ActiveMap(index, true);
         }
 
