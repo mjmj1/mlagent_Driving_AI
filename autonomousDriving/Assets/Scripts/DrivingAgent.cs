@@ -72,7 +72,7 @@ public class DrivingAgent : Agent
         transform.localRotation = Quaternion.identity;
 
         stage.ActiveMap(index, false);
-        index = Random.Range(0, 2);
+        index = Random.Range(0, 4);
         stage.ActiveMap(index, true);
 
         Resources.UnloadUnusedAssets();
