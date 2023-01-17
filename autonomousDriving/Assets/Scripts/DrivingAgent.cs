@@ -73,7 +73,7 @@ public class DrivingAgent : Agent
         if(stage.maps.Count > 0)
         {
             stage.ActiveMap(index, false);
-            index = Random.Range(0, 2);
+            index = Random.Range(0, 4);
             stage.ActiveMap(index, true);
         }
 
