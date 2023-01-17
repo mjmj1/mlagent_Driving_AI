@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="480142ca-0921-429e-83a5-3d78dc8c3c4e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/Assets/ML-Agents/Timers/mjFrist_timers.json" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/Assets/ML-Agents/Timers/mjFrist_timers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/Assets/Prefabs/v1.1/Stage.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/Assets/Prefabs/v1.1/Stage.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/Assets/Scenes/mjFrist.unity" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/Assets/Scenes/mjFrist.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/Assets/Scripts/DrivingAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/Assets/Scripts/DrivingAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/Assets/Scripts/LaneDetect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/Assets/Scripts/LaneDetect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/ProjectSettings/PackageManagerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/ProjectSettings/PackageManagerSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/autonomousDriving/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/autonomousDriving/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KB6ZNmXk3b1yqE2LVfEkPGNQas" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="480142ca-0921-429e-83a5-3d78dc8c3c4e" name="Changes" comment="" />
+      <created>1673435683906</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1673435683906</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
