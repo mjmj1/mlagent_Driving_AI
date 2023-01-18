@@ -180,14 +180,19 @@ public class LaneDetect_v2 : MonoBehaviour
             }
         }
 
-        mean_left = sum_left / count_letf;
-        mean_right = sum_right / count_right;
+        if(count_letf > 0 | count_right > 0)
+        {
+            mean_left = sum_left / count_letf;
+            mean_right = sum_right / count_right;
 
-        /*Cv2.MinMaxLoc(left_half, out _, out left_max_loc);
-        Cv2.MinMaxLoc(right_half, out _, out right_max_loc);*/
-
-        left_max_loc = new Point(mean_left, 0);
-        right_max_loc = new Point(mean_right + midpoint, 0);
+            left_max_loc = new Point(mean_left, 0);
+            right_max_loc = new Point(mean_right + midpoint, 0);
+        }
+        else
+        {
+            Cv2.MinMaxLoc(left_half, out _, out left_max_loc);
+            Cv2.MinMaxLoc(right_half, out _, out right_max_loc);
+        }
     }
 
     List<List<Point>> Slide_window_search(Mat binary_warped, Point left_current, Point right_current)
