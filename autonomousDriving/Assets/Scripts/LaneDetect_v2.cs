@@ -3,6 +3,7 @@ using UnityEngine;
 using OpenCvSharp;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class LaneDetect_v2 : MonoBehaviour
 {
@@ -33,15 +34,12 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Mat black = new(mats[0].Size(), MatType.CV_8UC3, Scalar.Black);
 
-        Point leftbases;
-        Point rightbases;
+        Lane_peak(histogram, out Point leftbases, out Point rightbases);
 
-        Lane_peak(histogram, out leftbases, out rightbases);
-
-        List<List<Point>> drawinfo = slide_window_search(bv_crop, leftbases, rightbases);
+        List<List<Point>> drawinfo = Slide_window_search(bv_crop, leftbases, rightbases);
 
         #region 좌표 그리기
-        /*int left_idx = 0;
+        int left_idx = 0;
         int right_idx = 0;
 
         foreach (Point pt in region_of_interest_vertices)
@@ -61,7 +59,7 @@ public class LaneDetect_v2 : MonoBehaviour
             Cv2.Circle(mats[0], pt, 5, Scalar.Green);
             Cv2.PutText(mats[0], right_idx.ToString(), pt, HersheyFonts.HersheySimplex, 1, Scalar.Green);
             right_idx++;
-        }*/
+        }
         #endregion
 
         // 그리기
@@ -75,10 +73,10 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.WarpPerspective(black, output, mats[1], new Size(width, height));
 
-        Cv2.BitwiseOr(image, output, output);
+        //Cv2.BitwiseOr(image, output, output);
 
         //return mats[0];
-        return output;
+        return mats[0];
     }
 
     Mat[] Bird_eye_view(Mat img_frame, int width, int height, Point[] region_of_interest_vertices)
@@ -155,19 +153,44 @@ public class LaneDetect_v2 : MonoBehaviour
 
     void Lane_peak(Mat image, out Point left_max_loc, out Point right_max_loc)
     {
-
         int midpoint = image.Cols / 2;
-
         Mat left_half = image.ColRange(0, midpoint);
         Mat right_half = image.ColRange(midpoint, image.Cols);
 
-        Cv2.MinMaxLoc(left_half, out _, out left_max_loc);
-        Cv2.MinMaxLoc(right_half, out _, out right_max_loc);
+        int count_letf = 0;
+        int sum_left = 0;
+        int mean_left;
 
-        right_max_loc += new Point(midpoint, 0);
+        int count_right = 0;
+        int sum_right = 0;
+        int mean_right;
+
+        for (int i = 0; i < midpoint; i++)
+        {
+            if (left_half.At<int>(0, i) != 0)
+            {
+                sum_left += i;
+                count_letf++;
+            }
+
+            if (right_half.At<int>(0, i) != 0)
+            {
+                sum_right += i;
+                count_right++;
+            }
+        }
+
+        mean_left = sum_left / count_letf;
+        mean_right = sum_right / count_right;
+
+        /*Cv2.MinMaxLoc(left_half, out _, out left_max_loc);
+        Cv2.MinMaxLoc(right_half, out _, out right_max_loc);*/
+
+        left_max_loc = new Point(mean_left, 0);
+        right_max_loc = new Point(mean_right + midpoint, 0);
     }
 
-    List<List<Point>> slide_window_search(Mat binary_warped, Point left_current, Point right_current)
+    List<List<Point>> Slide_window_search(Mat binary_warped, Point left_current, Point right_current)
     {
         int nwindows = 12;
         int window_height = binary_warped.Height / nwindows;
@@ -220,7 +243,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
             if (left_lane.Count > 0)
             {
-                rePos_center(left_lane, ref new_left, good_left.Y);
+                RePos_center(left_lane, ref new_left, good_left.Y);
                 new_left_lane.Add(new_left);
             }
             /*else
@@ -230,7 +253,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
             if (right_lane.Count > 0)
             {
-                rePos_center(right_lane, ref new_right, good_right.Y);
+                RePos_center(right_lane, ref new_right, good_right.Y);
                 new_right_lane.Add(new_right);
             }
 
@@ -241,7 +264,7 @@ public class LaneDetect_v2 : MonoBehaviour
         return new List<List<Point>> { new_left_lane, new_right_lane };
     }
 
-    void rePos_center(List<Point> Pos, ref Point current, int height)
+    void RePos_center(List<Point> Pos, ref Point current, int height)
     {
         int sum = 0;
 
