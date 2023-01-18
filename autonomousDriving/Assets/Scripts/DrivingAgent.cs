@@ -24,14 +24,14 @@ public class DrivingAgent : Agent
     private StageManager stage;
     int index = 0;
 
-    enum driveType
+    enum DriveType
     {
         FRONTDRIVE,
         REARDRIVE,
         ALLDRIVE
     }
 
-    [SerializeField] driveType drive;
+    [SerializeField] DriveType drive;
 
     private new Transform transform;
     private new Rigidbody rigidbody;
@@ -67,7 +67,7 @@ public class DrivingAgent : Agent
     public override void OnEpisodeBegin()
     {
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
-        transform.localPosition = new Vector3(0, 0.5f, 6f);
+        transform.localPosition = new Vector3(28f, 0.5f, 6f);
         transform.localRotation = Quaternion.identity;
 
         if(stage.maps.Count > 0)
@@ -147,7 +147,7 @@ public class DrivingAgent : Agent
     void Drive(float vertical)
     {
         // Àü·û ±¸µ¿ÀÏ ¶§
-        if (drive == driveType.ALLDRIVE)
+        if (drive == DriveType.ALLDRIVE)
         {
             for (int i = 0; i < wheels.Length; i++)
             {
@@ -170,7 +170,7 @@ public class DrivingAgent : Agent
             }
         }
 
-        else if (drive == driveType.REARDRIVE)	// ÈÄ·û±¸µ¿ÀÏ ¶§
+        else if (drive == DriveType.REARDRIVE)	// ÈÄ·û±¸µ¿ÀÏ ¶§
         {
             // µÞ¹ÙÄû¿¡¸¸.
             for (int i = 2; i < wheels.Length; i++)
@@ -224,10 +224,7 @@ public class DrivingAgent : Agent
     {
         for (int i = 0; i < 4; i++)
         {
-            Quaternion quat;
-            Vector3 pos;
-
-            wheels[i].GetWorldPose(out pos, out quat);
+            wheels[i].GetWorldPose(out Vector3 pos, out Quaternion quat);
             wheelMesh[i].transform.position = pos;
             wheelMesh[i].transform.rotation = quat * Quaternion.Euler(new Vector3(0, -90, 0));
         }

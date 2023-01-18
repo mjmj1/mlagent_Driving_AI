@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using OpenCvSharp;
 using UnityEngine.UI;
+using System.Linq;
 
 public class LaneDetect_v2 : MonoBehaviour
 {
@@ -40,15 +41,15 @@ public class LaneDetect_v2 : MonoBehaviour
         List<List<Point>> drawinfo = slide_window_search(bv_crop, leftbases, rightbases);
 
         #region ÁÂÇ¥ ±×¸®±â
-        //int left_idx = 0;
-        //int right_idx = 0;
+        /*int left_idx = 0;
+        int right_idx = 0;
 
-        /*foreach(Point pt in region_of_interest_vertices)
+        foreach (Point pt in region_of_interest_vertices)
         {
             Cv2.Circle(image, pt, 5, Scalar.Red);
-        }*/
+        }
 
-        /*foreach(Point pt in drawinfo[0])
+        foreach (Point pt in drawinfo[0])
         {
             Cv2.Circle(mats[0], pt, 5, Scalar.Red);
             Cv2.PutText(mats[0], left_idx.ToString(), pt, HersheyFonts.HersheySimplex, 1, Scalar.Red);
@@ -154,16 +155,15 @@ public class LaneDetect_v2 : MonoBehaviour
 
     void Lane_peak(Mat image, out Point left_max_loc, out Point right_max_loc)
     {
-        Point temp;
 
-        double min, max;
         int midpoint = image.Cols / 2;
 
         Mat left_half = image.ColRange(0, midpoint);
         Mat right_half = image.ColRange(midpoint, image.Cols);
 
-        Cv2.MinMaxLoc(left_half, out min, out max, out temp, out left_max_loc);
-        Cv2.MinMaxLoc(right_half, out min, out max, out temp, out right_max_loc);
+        Cv2.MinMaxLoc(left_half, out _, out left_max_loc);
+        Cv2.MinMaxLoc(right_half, out _, out right_max_loc);
+
         right_max_loc += new Point(midpoint, 0);
     }
 
@@ -223,6 +223,10 @@ public class LaneDetect_v2 : MonoBehaviour
                 rePos_center(left_lane, ref new_left, good_left.Y);
                 new_left_lane.Add(new_left);
             }
+            /*else
+            {
+                new_left_lane.Add(new Point(new_left_lane.Last().X, win_y_low));
+            }*/
 
             if (right_lane.Count > 0)
             {
