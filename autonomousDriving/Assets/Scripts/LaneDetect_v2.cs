@@ -39,7 +39,7 @@ public class LaneDetect_v2 : MonoBehaviour
         List<List<Point>> drawinfo = Slide_window_search(bv_crop, leftbases, rightbases);
 
         #region 좌표 그리기
-        int left_idx = 0;
+        /*int left_idx = 0;
         int right_idx = 0;
 
         foreach (Point pt in region_of_interest_vertices)
@@ -59,7 +59,7 @@ public class LaneDetect_v2 : MonoBehaviour
             Cv2.Circle(mats[0], pt, 5, Scalar.Green);
             Cv2.PutText(mats[0], right_idx.ToString(), pt, HersheyFonts.HersheySimplex, 1, Scalar.Green);
             right_idx++;
-        }
+        }*/
         #endregion
 
         // 그리기
@@ -73,10 +73,10 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.WarpPerspective(black, output, mats[1], new Size(width, height));
 
-        //Cv2.BitwiseOr(image, output, output);
+        Cv2.BitwiseOr(image, output, output);
 
         //return mats[0];
-        return mats[0];
+        return output;
     }
 
     Mat[] Bird_eye_view(Mat img_frame, int width, int height, Point[] region_of_interest_vertices)
