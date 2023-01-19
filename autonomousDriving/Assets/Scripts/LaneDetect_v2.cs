@@ -73,7 +73,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.WarpPerspective(black, output, mats[1], new Size(width, height));
 
-        Cv2.BitwiseOr(image, output, output);
+        //Cv2.BitwiseOr(image, output, output);
 
         //return mats[0];
         return output;
