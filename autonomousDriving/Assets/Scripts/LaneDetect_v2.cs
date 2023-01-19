@@ -69,7 +69,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.FillConvexPoly(black, drawinfo_all, new Scalar(0, 255, 0));
 
-        Cv2.Polylines(black, drawinfo, false, new Scalar(0, 255, 255), 2);
+        Cv2.Polylines(black, drawinfo, false, new Scalar(0, 255, 255), 5);
 
         Cv2.WarpPerspective(black, output, mats[1], new Size(width, height));
 
