@@ -54,7 +54,7 @@ public class DrivingAgent : Agent
         for (int i = 0; i < wheelMesh.Length; i++)
         {
             // 휠콜라이더의 위치를 바퀴메쉬의 위치로 각각 이동시킨다.
-            wheels[i].steerAngle = 90;
+            wheels[i].steerAngle = 0;
             wheels[i].transform.position = wheelMesh[i].transform.position;
         }
     }
@@ -67,25 +67,25 @@ public class DrivingAgent : Agent
         {
             case 0:
                 {
-                    transform.localPosition = new Vector3(0f, 0.5f, 6f);
+                    transform.localPosition = new Vector3(-1.4f, 0.7f, 0f);
                     transform.localRotation = Quaternion.identity;
                     break;
                 }
             case 1:
                 {
-                    transform.localPosition = new Vector3(0f, 0.5f, 9f);
+                    transform.localPosition = new Vector3(2.35f, 0.7f, 0f);
                     transform.localRotation = Quaternion.identity;
                     break;
                 }
             case 2:
                 {
-                    transform.localPosition = new Vector3(0f, 0.5f, 6f);
+                    transform.localPosition = new Vector3(-1.4f, 0.7f, 0f);
                     transform.localRotation = Quaternion.Euler(new Vector3(0, 180f, 0));
                     break;
                 }
             case 3:
                 {
-                    transform.localPosition = new Vector3(0f, 0.5f, 9f);
+                    transform.localPosition = new Vector3(2.35f, 0.7f, 0f);
                     transform.localRotation = Quaternion.Euler(new Vector3(0, 180f, 0));
                     break;
                 }
@@ -117,6 +117,7 @@ public class DrivingAgent : Agent
         }
 
         AddReward(reward / MaxStep);
+
         Debug.Log(transform.parent.name + " : " + action[0] + ", " + action[1]);
     }
 
@@ -135,20 +136,7 @@ public class DrivingAgent : Agent
             SetReward(-1f);
             EndEpisode();
         }
-
-        /*if (other.CompareTag("SafeZone"))
-        {
-            
-        }*/
     }
-
-    /*private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("SafeZone"))
-        { 
-            AddReward(-0.1f / MaxStep);
-        }
-    }*/
 
     void Drive(float vertical)
     {
@@ -232,7 +220,7 @@ public class DrivingAgent : Agent
         {
             wheels[i].GetWorldPose(out Vector3 pos, out Quaternion quat);
             wheelMesh[i].transform.position = pos;
-            wheelMesh[i].transform.rotation = quat * Quaternion.Euler(new Vector3(0, -90, 0));
+            wheelMesh[i].transform.rotation = quat;
         }
     }
 
@@ -241,19 +229,19 @@ public class DrivingAgent : Agent
         //steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontalInput;
         if (horizontal > 0)
         {   // rear tracks size is set to 1.5f          wheel base has been set to 2.55f
-            wheels[0].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal + 90;
-            wheels[1].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal + 90;
+            wheels[0].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal;
+            wheels[1].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal;
         }
         else if (horizontal < 0)
         {
-            wheels[0].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal + 90;
-            wheels[1].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal + 90;
+            wheels[0].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius - (1.5f / 2))) * horizontal;
+            wheels[1].steerAngle = Mathf.Rad2Deg * Mathf.Atan(2.55f / (radius + (1.5f / 2))) * horizontal;
             // transform.Rotate(Vector3.up * steerHelping)
         }
         else
         {
-            wheels[0].steerAngle = 90;
-            wheels[1].steerAngle = 90;
+            wheels[0].steerAngle = 0;
+            wheels[1].steerAngle = 0;
         }
     }
 }

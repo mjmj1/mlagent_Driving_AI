@@ -4,6 +4,7 @@ using OpenCvSharp;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using System.Collections;
 
 public class LaneDetect_v2 : MonoBehaviour
 {
@@ -23,12 +24,13 @@ public class LaneDetect_v2 : MonoBehaviour
         Point[] region_of_interest_vertices =
             {
             new Point(0, height),
-            new Point(width * 0.2, height * 0.65),
-            new Point(width * 0.8, height * 0.65),
+            new Point(width * 0.28, height * 0.6),
+            new Point(width * 0.72, height * 0.6),
             new Point(width, height)
         };
 
         Mat[] mats = Bird_eye_view(image, width, height, region_of_interest_vertices);
+
         Mat bv_crop = Color_filter(mats[0]);    //8UC1
         Mat histogram = Lane_histogram(bv_crop);
 
@@ -75,7 +77,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         //Cv2.BitwiseOr(image, output, output);
 
-        //return mats[0];
+        return bv_crop;
         return output;
     }
 
@@ -138,6 +140,10 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.CvtColor(res, gray_image, ColorConversionCodes.BGR2HSV);
         Cv2.Canny(gray_image, output, 100, 120);
+
+        Point[] rol_pt = new Point[4] { new Point(0, 0), new Point(0, output.Width), new Point(30, output.Width), new Point(30, 0) };
+
+        Cv2.FillConvexPoly(output, rol_pt, new Scalar(0, 255, 0));
 
         return output;
     }
