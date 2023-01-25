@@ -24,8 +24,8 @@ public class LaneDetect_v2 : MonoBehaviour
         Point[] region_of_interest_vertices =
             {
             new Point(0, height),
-            new Point(width * 0.28, height * 0.6),
-            new Point(width * 0.72, height * 0.6),
+            new Point(width * 0.2, height * 0.65),
+            new Point(width * 0.8, height * 0.65),
             new Point(width, height)
         };
 
@@ -75,9 +75,7 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.WarpPerspective(black, output, mats[1], new Size(width, height));
 
-        //Cv2.BitwiseOr(image, output, output);
-
-        return bv_crop;
+        //return bv_crop;
         return output;
     }
 
@@ -140,10 +138,6 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.CvtColor(res, gray_image, ColorConversionCodes.BGR2HSV);
         Cv2.Canny(gray_image, output, 100, 120);
-
-        Point[] rol_pt = new Point[4] { new Point(0, 0), new Point(0, output.Width), new Point(30, output.Width), new Point(30, 0) };
-
-        Cv2.FillConvexPoly(output, rol_pt, new Scalar(0, 255, 0));
 
         return output;
     }
