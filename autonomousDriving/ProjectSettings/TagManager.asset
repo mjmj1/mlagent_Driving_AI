@@ -23,6 +23,7 @@ TagManager:
   - DeathLine
   - SafeZone
   - map
+  - Target
   layers:
   - Default
   - TransparentFX
