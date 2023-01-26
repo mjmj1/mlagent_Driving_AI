@@ -101,11 +101,11 @@ public class DrivingAgent : Agent
         Drive(action[0]);
         SteerVehicle(action[1]);
 
-        if (action[0] > 0)
+        if (action[0] >= 0.3f)
         {
             reward = 1f;
         }
-        else if (action[0] < 0)
+        else if (action[0] < 0.3f)
         {
             reward = -1f;
         }
