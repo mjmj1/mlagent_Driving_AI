@@ -88,6 +88,11 @@ public class FollowAgent : Agent
         {
             AddReward(1f / MaxStep);
         }
+        else if(Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position) > 30f)
+        {
+            SetReward(-1f);
+            EndEpisode();
+        }
         else
         {
             AddReward(-1f / MaxStep);
