@@ -292,7 +292,7 @@ public class LaneDetect_v2 : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Texture2D img_copy = cam.targetTexture.toTexture2D();
         Mat img_frame = OpenCvSharp.Unity.TextureToMat(img_copy);

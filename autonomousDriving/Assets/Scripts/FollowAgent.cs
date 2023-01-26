@@ -40,7 +40,6 @@ public class FollowAgent : Agent
 
     private new Transform transform;
     private new Rigidbody rigidbody;
-    private RayPerceptionSensorComponentBase rayout;
 
     public void Update()
     {
@@ -54,7 +53,6 @@ public class FollowAgent : Agent
 
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
-        rayout = GetComponent<RayPerceptionSensorComponent3D>();
 
         // 무게 중심을 y축 아래방향으로 낮춘다.
         rigidbody.centerOfMass = new Vector3(0, -1f, 0);

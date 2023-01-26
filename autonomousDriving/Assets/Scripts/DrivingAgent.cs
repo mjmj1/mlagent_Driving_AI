@@ -35,12 +35,6 @@ public class DrivingAgent : Agent
 
     float reward = 0;
 
-    public void Update()
-    {
-        UpdateMeshesPostion();
-        AddDownForce();
-    }
-
     public override void Initialize()
     {
         MaxStep = 10000;
@@ -61,6 +55,8 @@ public class DrivingAgent : Agent
 
     public override void OnEpisodeBegin()
     {
+        Resources.UnloadUnusedAssets();
+
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
 
         switch(Random.Range(0, 4))
@@ -90,8 +86,6 @@ public class DrivingAgent : Agent
                     break;
                 }
         }
-        
-        Resources.UnloadUnusedAssets();
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -100,6 +94,9 @@ public class DrivingAgent : Agent
 
         Drive(action[0]);
         SteerVehicle(action[1]);
+
+        UpdateMeshesPostion();
+        AddDownForce();
 
         if (action[0] >= 0.3f)
         {
