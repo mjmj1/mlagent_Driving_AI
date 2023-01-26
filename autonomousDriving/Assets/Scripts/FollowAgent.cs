@@ -101,7 +101,6 @@ public class FollowAgent : Agent
             AddReward(-1f / MaxStep);
         }
 
-        Debug.Log(rayout.DetectableTags[1]);
         //Debug.Log(transform.parent.name + " : " + action[0] + ", " + action[1]);
         //Debug.Log(Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position));
     }
