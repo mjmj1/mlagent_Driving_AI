@@ -75,7 +75,6 @@ public class LaneDetect_v2 : MonoBehaviour
 
         Cv2.WarpPerspective(black, output, mats[1], new Size(width, height));
 
-        //return bv_crop;
         return output;
     }
 
@@ -293,7 +292,7 @@ public class LaneDetect_v2 : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Texture2D img_copy = cam.targetTexture.toTexture2D();
         Mat img_frame = OpenCvSharp.Unity.TextureToMat(img_copy);

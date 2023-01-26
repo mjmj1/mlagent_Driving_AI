@@ -74,6 +74,8 @@ public class FollowAgent : Agent
         transform.localRotation = Quaternion.Euler(new Vector3(0, 90f, 0));
         
         follower.distanceTravelled = 0;
+        follower.speed = 2f;
+        follower.count = 2.5f;
 
         Resources.UnloadUnusedAssets();
     }
@@ -85,24 +87,7 @@ public class FollowAgent : Agent
         Drive(action[0]);
         SteerVehicle(action[1]);
 
-
-        if(Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position) > 10f
-            & Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position) > 5f)
-        {
-            AddReward(1f / MaxStep);
-        }
-        else if(Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position) > 30f)
-        {
-            SetReward(-1f);
-            EndEpisode();
-        }
-        else
-        {
-            AddReward(-1f / MaxStep);
-        }
-
-        //Debug.Log(transform.parent.name + " : " + action[0] + ", " + action[1]);
-        //Debug.Log(Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position));
+        Debug.Log(transform.parent.name + " : " + action[0] + ", " + action[1]);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -122,6 +107,23 @@ public class FollowAgent : Agent
         }
 
         if (other.CompareTag("Target"))
+        {
+            SetReward(-1f);
+            EndEpisode();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("SafeZone"))
+        {
+            AddReward(1f / MaxStep);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("SafeZone"))
         {
             SetReward(-1f);
             EndEpisode();
