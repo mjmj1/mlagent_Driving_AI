@@ -40,6 +40,7 @@ public class FollowAgent : Agent
 
     private new Transform transform;
     private new Rigidbody rigidbody;
+    private RayPerceptionSensorComponentBase rayout;
 
     public void Update()
     {
@@ -53,6 +54,7 @@ public class FollowAgent : Agent
 
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
+        rayout = GetComponent<RayPerceptionSensorComponent3D>();
 
         // 무게 중심을 y축 아래방향으로 낮춘다.
         rigidbody.centerOfMass = new Vector3(0, -1f, 0);
@@ -83,7 +85,8 @@ public class FollowAgent : Agent
         Drive(action[0]);
         SteerVehicle(action[1]);
 
-        if(Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position) < 10f
+
+        if(Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position) > 10f
             & Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position) > 5f)
         {
             AddReward(1f / MaxStep);
@@ -98,8 +101,9 @@ public class FollowAgent : Agent
             AddReward(-1f / MaxStep);
         }
 
+        Debug.Log(rayout.DetectableTags[1]);
         //Debug.Log(transform.parent.name + " : " + action[0] + ", " + action[1]);
-        Debug.Log(Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position));
+        //Debug.Log(Vector3.Distance(GameObject.FindGameObjectWithTag("Target").transform.position, transform.position));
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
