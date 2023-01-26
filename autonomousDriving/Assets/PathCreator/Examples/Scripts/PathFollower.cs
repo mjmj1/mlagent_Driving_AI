@@ -33,7 +33,7 @@ namespace PathCreation.Examples
 
                 if(count < 0f)
                 {
-                    speed = Random.Range(4f, 8f);
+                    speed = Random.Range(4f, 7f);
                     count = Random.Range(3f, 6f);
                 }
             }
