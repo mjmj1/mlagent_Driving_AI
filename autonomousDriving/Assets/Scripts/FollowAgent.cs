@@ -68,12 +68,10 @@ public class FollowAgent : Agent
     public override void OnEpisodeBegin()
     {
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
-        transform.localPosition = new Vector3(0f, -0.4f, 0f);
+        transform.localPosition = new Vector3(13f, -0.4f, 0f);
         transform.localRotation = Quaternion.Euler(new Vector3(0, 90f, 0));
         
         follower.distanceTravelled = 0;
-        follower.speed = 2f;
-        follower.count = 2.5f;
 
         Resources.UnloadUnusedAssets();
     }
@@ -85,7 +83,7 @@ public class FollowAgent : Agent
         Drive(action[0]);
         SteerVehicle(action[1]);
 
-        Debug.Log(transform.parent.name + " : " + action[0] + ", " + action[1]);
+        //Debug.Log(transform.parent.name + " : " + action[0] + ", " + action[1]);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -98,12 +96,6 @@ public class FollowAgent : Agent
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("DeathLine"))
-        {
-            SetReward(-1f);
-            EndEpisode();
-        }
-
         if (other.CompareTag("Target"))
         {
             SetReward(-1f);
