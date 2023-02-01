@@ -432,7 +432,7 @@ MeshCollider:
   m_GameObject: {fileID: 1651386465249541295}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: -1
@@ -740,7 +740,7 @@ MonoBehaviour:
   m_Height: 80
   m_Grayscale: 0
   m_ObservationType: 0
-  m_ObservationStacks: 1
+  m_ObservationStacks: 3
   m_Compression: 1
 --- !u!1 &2479285412211526281
 GameObject:

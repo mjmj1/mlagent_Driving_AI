@@ -6075,7 +6075,12 @@ PrefabInstance:
       propertyPath: rawImage
       value: 
       objectReference: {fileID: 6247226159175937432}
-    m_RemovedComponents: []
+    - target: {fileID: 5676743806903629604, guid: 0c2aa72dc34672746bf27d10e49ebe00, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7764924467529861388, guid: 0c2aa72dc34672746bf27d10e49ebe00, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0c2aa72dc34672746bf27d10e49ebe00, type: 3}
 --- !u!4 &4312624938216597281 stripped
 Transform:

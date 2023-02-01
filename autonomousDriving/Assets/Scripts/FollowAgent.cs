@@ -68,7 +68,7 @@ public class FollowAgent : Agent
     public override void OnEpisodeBegin()
     {
         rigidbody.velocity = rigidbody.angularVelocity = Vector3.zero;
-        transform.localPosition = new Vector3(13f, -0.4f, 0f);
+        transform.localPosition = new Vector3(10f, 0f, 0f);
         transform.localRotation = Quaternion.Euler(new Vector3(0, 90f, 0));
         
         follower.distanceTravelled = 0;
