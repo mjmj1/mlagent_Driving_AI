@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 6272222009829105286}
   - component: {fileID: 6272222009829105287}
   - component: {fileID: 6272222009829105281}
+  - component: {fileID: 8110066095233956402}
   m_Layer: 3
   m_Name: Agent 1
   m_TagString: Untagged
@@ -273,8 +274,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 10
   TakeActionsBetweenDecisions: 1
+--- !u!114 &8110066095233956402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367517410433721750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Record: 1
+  NumStepsToRecord: 0
+  DemonstrationName: DrivingAgentDemo
+  DemonstrationDirectory: Demos
 --- !u!1 &1422290601866979312
 GameObject:
   m_ObjectHideFlags: 0

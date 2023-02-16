@@ -37,7 +37,7 @@ public class DrivingAgent : Agent
 
     public override void Initialize()
     {
-        MaxStep = 10000;
+        MaxStep = 5000;
 
         transform = GetComponent<Transform>();
         rigidbody = GetComponent<Rigidbody>();
